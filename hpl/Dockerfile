@@ -1,0 +1,12 @@
+FROM mshaikh/mpich314:latest
+
+RUN apt-get -y update &&  apt-get install -y libatlas-base-dev gfortran
+RUN mkdir /hpl
+WORKDIR /hpl
+RUN wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz 
+RUN tar xvf hpl-2.3.tar.gz -C /hpl --strip-component=1
+ADD ./Make.ubuntu /hpl
+RUN make arch=ubuntu
+WORKDIR /hpl
+
+
